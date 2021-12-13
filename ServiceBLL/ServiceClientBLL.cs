@@ -23,7 +23,7 @@ namespace ServiceBLL
             var hotel = service.GetHotel().HotelDALtoBLL();
             try
             {
-                GetClientById(int.Parse(client.ID));
+                GetClientById(client.ID);
             }
             catch (ClientIDNotFoundException)
             {
@@ -58,53 +58,53 @@ namespace ServiceBLL
             var hotel = service.GetHotel().HotelDALtoBLL();
             return hotel.Clients;
         }
-        public void DeleteById(int id)
+        public void DeleteById(string id)
         {
             var service = new ServiceHotelDAL(path);
             var hotel = service.GetHotel().HotelDALtoBLL();
             for (int i = 0; i < hotel.Clients.Count; i++)
             {
-                if (hotel.Clients[i].ID == id.ToString())
+                if (hotel.Clients[i].ID == id)
                 {
                     hotel.Clients.Remove(hotel.Clients[i]);
                 }
             }
             service.Save(hotel.HotelBLLtoDAL());
         }
-        public EntityClientBLL GetClientById(int id)
+        public EntityClientBLL GetClientById(string id)
         {
             var service = new ServiceHotelDAL(path);
             var hotel = service.GetHotel().HotelDALtoBLL();
             for (int i = 0; i < hotel.Clients.Count; i++)
             {
-                if (hotel.Clients[i].ID == id.ToString())
+                if (hotel.Clients[i].ID == id)
                 {
                     return hotel.Clients[i];
                 }
             }
             throw new ClientIDNotFoundException();
         }
-        public void UpdateById(int id, EntityClientBLL client)
+        public void UpdateById(string id, EntityClientBLL client)
         {
             var service = new ServiceHotelDAL(path);
             var hotel = service.GetHotel().HotelDALtoBLL();
             for (int i = 0; i < hotel.Clients.Count; i++)
             {
-                if (hotel.Clients[i].ID == id.ToString())
+                if (hotel.Clients[i].ID == id)
                 {
                     hotel.Clients[i] = client;
                 }
             }
             service.Save(hotel.HotelBLLtoDAL());
         }
-        public string GetInfoById(int id)
+        public string GetInfoById(string id)
         {
             string info;
             var service = new ServiceHotelDAL(path);
             var hotel = service.GetHotel().HotelDALtoBLL();
             for (int i = 0; i < hotel.Clients.Count; i++)
             {
-                if (hotel.Clients[i].ID == id.ToString())
+                if (hotel.Clients[i].ID == id)
                 {
                     info = $"ID: {hotel.Clients[i].ID}\n" +
                     $"Ім`я: {hotel.Clients[i].FirstName}\n" +
@@ -122,7 +122,7 @@ namespace ServiceBLL
             }
             return null;
         }
-        public void ToRent(int id, EntityRoomBLL room, DateTime from, DateTime to)
+        public void ToRent(string id, EntityRoomBLL room, DateTime from, DateTime to)
         {
             var client = GetClientById(id);
             client.Rent = new EntityClient_sRoomBLL(room, from, to);
@@ -130,7 +130,7 @@ namespace ServiceBLL
             var service = new ServiceDeclarationBLL(path);
             service.Add(client);
         }
-        public void RemoveRent(int id)
+        public void RemoveRent(string id)
         {
             var client = GetClientById(id);
             client.Rent = null;

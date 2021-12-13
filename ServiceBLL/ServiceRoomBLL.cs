@@ -273,8 +273,8 @@ namespace ServiceBLL
                         info += $"Номер: {room.RoomNumber}\n" +
                             $"Ціна: {room.Price}\n" +
                             $"Статус: бронь\n" +
-                            $"З {client.Rent.DateFrom}\n" +
-                            $"До {client.Rent.DateTo}\n" +
+                            $"З {client.Rent.DateFrom.ToShortDateString()}\n" +
+                            $"До {client.Rent.DateTo.ToShortDateString()}\n" +
                             $"Клієнт: {client.FirstName} {client.LastName}\n" +
                             $"ID клієнта: {client.ID}\n\n";
                     }

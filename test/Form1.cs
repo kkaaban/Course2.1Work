@@ -326,7 +326,7 @@ namespace test
             }
             try
             {
-                ServiceClient.DeleteById(int.Parse(textBoxIdClient1.Text));
+                ServiceClient.DeleteById(textBoxIdClient1.Text);
             }
             catch (Exception ex)
             {
@@ -344,12 +344,10 @@ namespace test
                 MessageBox.Show("Спочатку оберіть або створіть готель");
                 return;
             }
-            int id;
             var form = new ClientForm();
             try
             {
-                id = int.Parse(textBoxIdClient1.Text);
-                form.Client = ServiceClient.GetClientById(id).ClientBLLtoPL();
+                form.Client = ServiceClient.GetClientById(textBoxIdClient1.Text).ClientBLLtoPL();
             }
             catch (Exception ex)
             {
@@ -360,7 +358,7 @@ namespace test
             if (form.Client == null)
                 return;
             EntityClientPL client = form.Client;
-            ServiceClient.UpdateById(id, client.ClientPLtoBLL());
+            ServiceClient.UpdateById(textBoxIdClient1.Text, client.ClientPLtoBLL());
         }
 
         private void buttonInfoByIdClient_Click(object sender, EventArgs e)
@@ -374,8 +372,7 @@ namespace test
             }
             try
             {
-                int id = int.Parse(textBoxIdClient1.Text);
-                labelInfo.Text = ServiceClient.GetInfoById(id);
+                labelInfo.Text = ServiceClient.GetInfoById(textBoxIdClient1.Text);
             }
             catch (Exception ex)
             {
@@ -426,7 +423,7 @@ namespace test
             }
             try
             {
-                ServiceClient.ToRent(int.Parse(textBoxIdClient2.Text),
+                ServiceClient.ToRent(textBoxIdClient2.Text,
                     ServiceRoom.GetRoomByNumber(textBoxNumRoom1.Text),
                 from, to);
             }
@@ -466,7 +463,7 @@ namespace test
             }
             try
             {
-                ServiceClient.ToRent(int.Parse(textBoxIdClient2.Text),
+                ServiceClient.ToRent(textBoxIdClient2.Text,
                     ServiceRoom.GetRoomByNumber(textBoxNumRoom1.Text),
                     from, to);
             }
@@ -491,7 +488,7 @@ namespace test
             }
             try
             {
-                ServiceClient.RemoveRent(int.Parse(textBoxIdClient3.Text));
+                ServiceClient.RemoveRent(textBoxIdClient3.Text);
             }
             catch (Exception ex)
             {
@@ -512,7 +509,7 @@ namespace test
             }
             try
             {
-                ServiceClient.RemoveRent(int.Parse(textBoxIdClient3.Text));
+                ServiceClient.RemoveRent(textBoxIdClient3.Text);
             }
             catch (Exception ex)
             {
