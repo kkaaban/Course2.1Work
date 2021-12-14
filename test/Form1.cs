@@ -655,7 +655,7 @@ namespace test
             if (form.ShowDialog() == DialogResult.Cancel)
                 return;
             string path = form.FileName;
-            ServiceDeclaration.CreateFile(int.Parse(textBoxIdDeclaration.Text), path);
+            ServiceDeclaration.CreateFile(textBoxIdDeclaration.Text, path);
         }
 
         private void buttonDeleteDeclaration_Click(object sender, EventArgs e)
@@ -667,7 +667,7 @@ namespace test
             }
             if (textBoxIdDeclaration.Text == "id заявки" || textBoxIdDeclaration.Text == "")
                 return;
-            ServiceDeclaration.Delete(int.Parse(textBoxIdDeclaration.Text));
+            ServiceDeclaration.Delete(textBoxIdDeclaration.Text);
         }
 
         private void buttonViewDeclarationByDate_Click(object sender, EventArgs e)

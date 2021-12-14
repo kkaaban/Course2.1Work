@@ -41,7 +41,7 @@ namespace ServiceBLL
                 $"підпс відповідальної особи _______\n" +
                 $"{DateTime.Now.ToShortDateString()}";
         }
-        public EntityDeclarationBLL GetDeclarationById(int id)
+        public EntityDeclarationBLL GetDeclarationById(string id)
         {
             var service = new ServiceHotelDAL(path);
             var hotel = service.GetHotel().HotelDALtoBLL();
@@ -52,13 +52,13 @@ namespace ServiceBLL
             }
             throw new Exception("не найден ид деклр");
         }
-        public void CreateFile(int id, string _path)
+        public void CreateFile(string id, string _path)
         {
             var declaration = GetDeclarationById(id);
             var service = new ServiceDeclarationDAL(path);
             service.CreateFile(declaration.DeclarationBLLtoDAL(), _path);
         }
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var service = new ServiceHotelDAL(path);
             var hotel = service.GetHotel().HotelDALtoBLL();
