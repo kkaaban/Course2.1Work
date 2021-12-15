@@ -143,6 +143,13 @@ namespace ServiceBLL
                                 $"Клієнт: {client.FirstName} {client.LastName}\n" +
                                 $"ID клієнта: {client.ID}\n\n";
                         }
+                        if (client.Rent.DateFrom < now &&
+                            client.Rent.DateTo < now)
+                        {
+                            info += $"Номер: {client.Rent.Room.RoomNumber}\n" +
+                               $"Ціна: {client.Rent.Room.Price}\n" +
+                               $"Статус: вільно\n\n";
+                        }
                     }
                 }
                 if (check)

@@ -70,5 +70,125 @@ namespace ServiceBLL.Tests
             // assert
             Assert.IsTrue(expected);
         }
+
+        [TestMethod()]
+        public void GetRoomFree_should_return_ListFreeRoom()
+        {
+            // arrange
+            var hotel = new EntityHotelBLL("Title", new List<EntityRoomBLL>());
+            string pathHotel = path + "\\" + hotel.Title + ".json";
+            hotel.Clients = new List<EntityClientBLL>();
+            hotel.Rooms = new List<EntityRoomBLL>();
+            hotel.Rooms.Add(new EntityRoomBLL("1"));
+            hotel.Rooms.Add(new EntityRoomBLL("2"));
+            #region Create Clients
+            hotel.Clients.Add(new EntityClientBLL("000000001")
+            {
+                FirstName = "Іван",
+                LastName = "Крутов",
+                PhoneNumber = "+380999092131"
+            });
+            hotel.Clients.Add(new EntityClientBLL("000000002")
+            {
+                FirstName = "Іван",
+                LastName = "Крутов",
+                PhoneNumber = "+380999092131",
+                Rent = new EntityClient_sRoomBLL(hotel.Rooms[1], DateTime.Parse("12.02.1970"), DateTime.Parse("13.02.1970"))
+            });
+            #endregion
+            var service = new ServiceHotelBLL(pathHotel);
+            service.Save(hotel);
+            var serviceRoom = new ServiceRoomBLL(pathHotel);
+
+            // act
+            var expected = serviceRoom.GetRoomFree(DateTime.Now);
+
+            // assert
+            Assert.IsTrue(expected.Count == 2);
+        }
+
+        [TestMethod()]
+        public void GetInfoFree_should_return_InfoFreeRooms()
+        {
+            // arrange
+            var hotel = new EntityHotelBLL("Title", new List<EntityRoomBLL>());
+            string pathHotel = path + "\\" + hotel.Title + ".json";
+            hotel.Clients = new List<EntityClientBLL>();
+            hotel.Rooms = new List<EntityRoomBLL>();
+            hotel.Rooms.Add(new EntityRoomBLL("1"));
+            hotel.Rooms.Add(new EntityRoomBLL("2"));
+            #region Create Clients
+            hotel.Clients.Add(new EntityClientBLL("000000001")
+            {
+                FirstName = "Іван",
+                LastName = "Крутов",
+                PhoneNumber = "+380999092131"
+            });
+            hotel.Clients.Add(new EntityClientBLL("000000002")
+            {
+                FirstName = "Іван",
+                LastName = "Крутов",
+                PhoneNumber = "+380999092131",
+                Rent = new EntityClient_sRoomBLL(hotel.Rooms[1], DateTime.Parse("12.02.1970"), DateTime.Parse("13.02.1970"))
+            });
+            #endregion
+            var service = new ServiceHotelBLL(pathHotel);
+            service.Save(hotel);
+            var serviceRoom = new ServiceRoomBLL(pathHotel);
+            string info = $"Номер: 1\n" +
+                       $"Ціна: 0\n" +
+                       $"Статус: вільно\n\n";
+            info += $"Номер: 2\n" +
+                       $"Ціна: 0\n" +
+                       $"Статус: вільно\n\n";
+
+            // act
+            string expected = serviceRoom.GetInfoFree(DateTime.Now);
+
+            // assert
+            Assert.AreEqual(expected, info);
+        }
+
+        [TestMethod()]
+        public void GetInfo_should_return_stringInfoAllRooms()
+        {
+            // arrange
+            var hotel = new EntityHotelBLL("Title", new List<EntityRoomBLL>());
+            string pathHotel = path + "\\" + hotel.Title + ".json";
+            hotel.Clients = new List<EntityClientBLL>();
+            hotel.Rooms = new List<EntityRoomBLL>();
+            hotel.Rooms.Add(new EntityRoomBLL("1"));
+            hotel.Rooms.Add(new EntityRoomBLL("2"));
+            #region Create Clients
+            hotel.Clients.Add(new EntityClientBLL("000000001")
+            {
+                FirstName = "Іван",
+                LastName = "Крутов",
+                PhoneNumber = "+380999092131"
+            });
+            hotel.Clients.Add(new EntityClientBLL("000000002")
+            {
+                FirstName = "Іван",
+                LastName = "Крутов",
+                PhoneNumber = "+380999092131",
+                Rent = new EntityClient_sRoomBLL(hotel.Rooms[1], DateTime.Parse("12.02.1970"), DateTime.Parse("13.02.1970"))
+            });
+            #endregion
+            var service = new ServiceHotelBLL(pathHotel);
+            service.Save(hotel);
+            var serviceRoom = new ServiceRoomBLL(pathHotel);
+            string info = $"Номер: 1\n" +
+                       $"Ціна: 0\n" +
+                       $"Статус: вільно\n\n";
+            info += $"Номер: 2\n" +
+                       $"Ціна: 0\n" +
+                       $"Статус: вільно\n\n";
+
+            // act
+            string expected = serviceRoom.GetInfo(DateTime.Now);
+
+            // assert
+            Assert.AreEqual(expected, info);
+        }
     }
 }
